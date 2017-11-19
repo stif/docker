@@ -2,22 +2,17 @@ FROM php:5-apache
 
 #COPY php.ini /usr/local/etc/php/
 #COPY php.ini /etc/php5/apache2/conf.d/php.ini
-COPY open3A_2.6/ /var/www/html/
-# change system/DBData/Installation.pfdb.php to 666
-# create system/session folder
-# chmod to 755
-# chown to www-data
 
-# Setup volume
-#VOLUME /var/www/html/
+RUN apt-get update && apt-get install -y unzip wget
+
 WORKDIR /var/www/html/
 
-# Add init-and-run script
-#ADD init-and-run-wiki.sh /usr/local/bin/init-and-run-wiki.sh
+#RUN mkdir /var/www/html/open3A
+#COPY open3A.zip /var/www/html/open3A_2.6
+RUN wget https://www.open3a.de/multiCMSDownload.php?filedl=98 -O open3A_2.6.zip
+RUN unzip open3A_2.6.zip
+RUN chmod 666 system/DBData/Installation.pfdb.php
+RUN mkdir system/session && chmod 755 system/session && chown www-data:www-data system/session
 
-#ENV TERM xterm
-#STOPSIGNAL SIGTERM
-# Meta
-# CMD ["/usr/local/bin/init-and-run-wiki.sh"]
 EXPOSE 80
 

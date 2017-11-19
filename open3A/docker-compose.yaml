@@ -1,23 +1,23 @@
 version: '2.2'
 
-#networks:
-#  extern:
-#    ipam:
-#      config:
-#        - subnet: 172.20.0.0/24
-#          gateway: 172.20.0.1
+networks:
+  extern:
+    ipam:
+      config:
+        - subnet: 172.20.0.0/24
+          gateway: 172.20.0.1
 services:
   open3a_db:
     image: mysql:5.7
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: aOpen3aTestpasswort
+      MYSQL_ROOT_PASSWORD: Open3ATestPassword
       MYSQL_DATABASE: open3a
     volumes:
       - open3a_db:/var/lib/mysql
-  #  networks:
-  #    extern:
-  #      ipv4_address: 172.20.0.15
+    networks:
+      extern:
+        ipv4_address: 172.20.0.15
   open3a-web:
     build: .
     image: open3a
@@ -29,14 +29,11 @@ services:
     restart: always
     environment:
       - TZ=Europe/Berlin
-    #  - VIRTUAL_HOST=3a.netmedia.pro
-    #  - LETSENCRYPT_HOST=3a.netmedia.pro
-    #  - LETSENCRYPT_EMAIL=stefan@reichhard.info
     volumes:
       - open3a:/var/www/html
-  #  networks:
-  #    extern:
-  #      ipv4_address: 172.20.0.16
+    networks:
+      extern:
+        ipv4_address: 172.20.0.16
 volumes:
   open3a_db:
   open3a:
