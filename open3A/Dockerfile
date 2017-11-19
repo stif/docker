@@ -7,8 +7,6 @@ RUN apt-get update && apt-get install -y unzip wget
 
 WORKDIR /var/www/html/
 
-#RUN mkdir /var/www/html/open3A
-#COPY open3A.zip /var/www/html/open3A_2.6
 RUN wget https://www.open3a.de/multiCMSDownload.php?filedl=98 -O open3A_2.6.zip
 RUN unzip open3A_2.6.zip
 RUN chmod 666 system/DBData/Installation.pfdb.php
