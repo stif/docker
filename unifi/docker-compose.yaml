@@ -1,0 +1,40 @@
+version: '2.2'
+
+services:
+  unifi:
+    image: jacobalberty/unifi:stable
+    container_name: unifi5
+    init: true
+    # not needed since using macvlan driver
+    #ports:
+    #  - "80:8080" 
+    #  - "443:8443" 
+    #  - "3478:3478/udp" 
+    #  - "10001:10001/udp" 
+    environment:
+     - TZ=Europe/Vienna
+     - RUNAS_UID0=false
+    # - BIND_PRIV=true
+    restart: always
+    networks:
+      mgmt_net:
+        ipv4_address: 10.0.1.10
+    volumes:
+      - unifi_data:/unifi/data
+      - unifi_logs:/unifi/logs
+
+volumes:
+  unifi_data:
+  unifi_logs:
+
+networks:
+  mgmt_net:
+    driver: macvlan
+    enable_ipv6: false
+    driver_opts:
+      parent: enp3s0
+    ipam:
+      driver: default
+      config:
+      - subnet: 10.0.1.0/24
+        gateway: 10.0.1.254
