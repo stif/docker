@@ -7,6 +7,40 @@ networks:
         - subnet: 172.20.0.0/24
           gateway: 172.20.0.1
 services:
+  
+  #docker run -d --name nginxproxy --network=extern -v /var/run/docker.sock:/tmp/docker.sock:ro -p 80:80 -p 443:443 -v nginxproxy_certs:/etc/nginx/certs:ro -v nginxproxy_vhosts:/etc/nginx/vhost.d -v nginxproxy_html:/usr/share/nginx/html --label com.github.jrcs.letsencrypt_nginx_proxy_companion.nginx_proxy=true jwilder/nginx-proxy
+  nginxproxy:
+    image: jwilder/nginx-proxy
+    container_name: nginxproxy
+    environment:
+      - TZ=${TIMEZONE}
+    ports:
+      - 80:80
+      - 443:443
+    networks:
+      extern:
+        ipv4_address: 172.20.0.2
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+      - nginxproxy_certs:/etc/nginx/certs:ro
+      - nginxproxy_vhosts:/etc/nginx/vhost.d
+      - nginxproxy_html:/usr/share/nginx/html
+    labels:
+      com.github.jrcs.letsencrypt_nginx_proxy_companion.nginx_proxy: "true"
+
+  #docker run -d --name nginxproxy_comp -v /var/run/docker.sock:/var/run/docker.sock:ro -v nginxproxy_certs:/etc/nginx/certs:rw --volumes-from nginxproxy jrcs/letsencrypt-nginx-proxy-companion
+  nginxproxy_comp:
+    image: jrcs/letsencrypt-nginx-proxy-companion
+    container_name: nginxproxy_comp
+    depends_on:
+      - nginxproxy
+    environment:
+      - TZ=${TIMEZONE}
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - nginxproxy_certs:/etc/nginx/certs:rw
+      - nginxproxy_vhosts:/etc/nginx/vhost.d
+      - nginxproxy_html:/usr/share/nginx/html
 
   open3a_db:
     image: mysql:5.7
@@ -25,11 +59,14 @@ services:
     container_name: open3a
     depends_on:
       - open3a_db
-    ports:
-      - 80:80
+    #ports:
+    #  - 80:80
     restart: always
     environment:
       - TZ=${TIMEZONE}
+      - VIRTUAL_HOST=${OPEN3A_SUBDOMAIN}.${DOMAIN}
+      - LETSENCRYPT_HOST=${OPEN3A_SUBDOMAIN}.${DOMAIN}
+      - LETSENCRYPT_EMAIL=${MY_LETSENCRYPT_EMAIL}
     volumes:
       - open3a:/var/www/html
     networks:
@@ -37,5 +74,8 @@ services:
         ipv4_address: 172.20.0.4
 
 volumes:
+  nginxproxy_certs:
+  nginxproxy_vhosts:
+  nginxproxy_html:
   open3a_db:
   open3a:
