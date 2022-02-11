@@ -4,3 +4,6 @@
 [submodule "nextcloud"]
 	path = nextcloud
 	url = https://gitea.netmedia.pro/docker/nextcloud.git
+[submodule "postgres-ssl"]
+	path = postgres-ssl
+	url = https://gitea.netmedia.pro/docker/postgres-ssl.git
