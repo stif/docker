@@ -10,3 +10,6 @@
 [submodule "odoo"]
 	path = odoo
 	url = https://gitea.netmedia.pro/docker/odoo.git
+[submodule "matrix"]
+	path = matrix
+	url = https://gitea.netmedia.pro/stif/matrix.git
