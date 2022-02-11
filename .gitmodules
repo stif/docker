@@ -1,0 +1,3 @@
+[submodule "nginx-proxy"]
+	path = nginx-proxy
+	url = https://gitea.netmedia.pro/docker/nginx-proxy.git
