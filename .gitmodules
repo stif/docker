@@ -13,3 +13,6 @@
 [submodule "matrix"]
 	path = matrix
 	url = https://gitea.netmedia.pro/docker/matrix.git
+[submodule "ninja"]
+	path = ninja
+	url = https://gitea.netmedia.pro/docker/ninja.git
