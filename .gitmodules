@@ -7,3 +7,6 @@
 [submodule "postgres-ssl"]
 	path = postgres-ssl
 	url = https://gitea.netmedia.pro/docker/postgres-ssl.git
+[submodule "odoo"]
+	path = odoo
+	url = https://gitea.netmedia.pro/docker/odoo.git
