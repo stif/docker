@@ -1,18 +1,18 @@
 [submodule "nginx-proxy"]
 	path = nginx-proxy
-	url = https://gitea.netmedia.pro/docker/nginx-proxy.git
+	url = https://gitea.nett.media/docker/nginx-proxy.git
 [submodule "nextcloud"]
 	path = nextcloud
-	url = https://gitea.netmedia.pro/docker/nextcloud.git
+	url = https://gitea.nett.media/docker/nextcloud.git
 [submodule "postgres-ssl"]
 	path = postgres-ssl
-	url = https://gitea.netmedia.pro/docker/postgres-ssl.git
+	url = https://gitea.nett.media/docker/postgres-ssl.git
 [submodule "odoo"]
 	path = odoo
-	url = https://gitea.netmedia.pro/docker/odoo.git
+	url = https://gitea.nett.media/docker/odoo.git
 [submodule "matrix"]
 	path = matrix
-	url = https://gitea.netmedia.pro/docker/matrix.git
+	url = https://gitea.nett.media/docker/matrix.git
 [submodule "ninja"]
 	path = ninja
-	url = https://gitea.netmedia.pro/docker/ninja.git
+	url = https://gitea.nett.media/docker/ninja.git
