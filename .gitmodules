@@ -16,3 +16,6 @@
 [submodule "ninja"]
 	path = ninja
 	url = https://gitea.nett.media/docker/ninja.git
+[submodule "gitea"]
+	path = gitea
+	url = https://gitea.nett.media/docker/gitea.git
